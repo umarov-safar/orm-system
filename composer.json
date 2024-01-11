@@ -1,0 +1,21 @@
+{
+    "name": "orm/entity",
+    "description": "PHP entity without any orm",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Orm\\Entity\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Safar Umarov",
+            "email": "safarumarov711@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "ext-pdo": "*"
+    }
+}
