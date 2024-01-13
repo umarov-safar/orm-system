@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "Orm\\Entity\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/functions.php"
+        ]
     },
     "authors": [
         {
@@ -16,7 +19,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.0",

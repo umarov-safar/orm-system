@@ -19,7 +19,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-orm}
-    env_file: ./example.env
+    env_file: ./.env
     volumes:
       - ./mysql:/var/lib/mysql
     networks:

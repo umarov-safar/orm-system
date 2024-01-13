@@ -19,8 +19,8 @@ class EntityManager
         $this->user = $user;
         $this->pwd = $pwd;
 
-        $dns = 'mysql:host=' . $this->host . 'dbname=' . $db;
-        $this->connection = new \PDO($dns, $user, $pwd);
+        $dns = 'mysql:host=' . $this->host . ';dbname=' . $db;
+        $this->connection = new \PDO($dns, $user, $pwd, [\PDO::FETCH_ASSOC]);
     }
 
     public function query(string $stmt)

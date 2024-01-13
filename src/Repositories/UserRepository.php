@@ -22,7 +22,9 @@ class UserRepository
 
     public function findById(int $id)
     {
-        $user_data = $this->entityManager->query("SELECT * FROM users WHERE id = " . $id)->fetch();
+        $user_data = $this->entityManager
+            ->query(sprintf('SELECT * FROM %s WHERE id = %s', User::TABLE, $id))
+            ->fetch();
 
         return $this->userMapper->populate($user_data, new User());
     }
