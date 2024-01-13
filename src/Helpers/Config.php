@@ -16,7 +16,7 @@ class Config
     public static function get(string $key): mixed
     {
         list($file_name, $key_without_filename) = self::explodeKey($key);
-        $data = self::getDataAsDto(self::getFileData($file_name));
+        $data = self::dataToDots(self::getFileData($file_name));
 
         return $data[$key_without_filename];
     }
@@ -50,7 +50,7 @@ class Config
      * @param array $data Multidimensional array.
      * @return array Array converted to dot notation.
      */
-    private static function getDataAsDto(array $data): array
+    private static function dataToDots(array $data): array
     {
         $recursiveIterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($data));
 

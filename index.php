@@ -15,14 +15,14 @@ $dotenv->safeLoad();
 
 // Entity manger for working with db
 $entity_manager = new EntityManager(
-    Config::get('database.host'),
-    Config::get('database.database'),
-    Config::get('database.user'),
-    Config::get('database.password')
+    config('database.host'),
+    config('database.database'),
+    config('database.user'),
+    config('database.password')
 );
 
 
 $user = new User();
-$user_reopistory = new UserRepository($entity_manager);
-$user = $user_reopistory->findById(1);
+$user_repository = new UserRepository($entity_manager);
+$user = $user_repository->findById(1);
 echo $user->getFirstName();

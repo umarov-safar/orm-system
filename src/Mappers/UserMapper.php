@@ -17,6 +17,19 @@ class UserMapper implements Mapperable
         'name_prefix' => 'name_prefix'
     ];
 
+    public function extract(User $user): array
+    {
+        $data = [];
+
+        foreach ($this->mapping as $key_obj => $key_column) {
+            if ($key_column !== 'id') {
+                $data[$key_column] = call_user_func([$user, $this->makeMethod('get', $key_obj)]);
+            }
+        }
+
+        return $data;
+    }
+
     public function populate(array $data, User $user)
     {
         $mappingFlipped = array_flip($this->mapping);

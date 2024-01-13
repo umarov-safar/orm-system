@@ -8,3 +8,13 @@ if (!function_exists('env')) {
     }
 
 }
+
+// Get value from config files
+if (!function_exists('config')) {
+
+    function config(string $key): mixed
+    {
+        return \Orm\Entity\Helpers\Config::get($key);
+    }
+
+}
