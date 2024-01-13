@@ -1,5 +1,7 @@
 <?php
 
+declare (strict_types=1);
+
 namespace Orm\Entity\Repositories;
 
 use Orm\Entity\Entities\User;

@@ -1,8 +1,10 @@
 <?php
+
 declare (strict_types=1);
 
 namespace Orm\Entity\Mappers;
 
+use Orm\Entity\Contracts\Mapperable;
 use Orm\Entity\Entities\User;
 
 class UserMapper implements Mapperable
@@ -32,8 +34,10 @@ class UserMapper implements Mapperable
     {
         if (str_contains($name, '_')) {
             $names = explode('_', $name);
-            return $prefix . join('', array_map(fn($name) => ucfirst($name), $names));
+
+            return $prefix . join('', array_map(fn ($name) => ucfirst($name), $names));
         }
+
         return $prefix . ucfirst($name);
     }
 }

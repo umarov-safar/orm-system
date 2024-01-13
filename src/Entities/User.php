@@ -1,4 +1,5 @@
 <?php
+
 declare (strict_types=1);
 
 namespace Orm\Entity\Entities;
@@ -7,6 +8,8 @@ use Orm\Entity\Data\GenderEnum;
 
 class User
 {
+    public const TABLE = 'users';
+
     private int $id;
     private string $first_name;
     private string $last_name;
@@ -16,11 +19,8 @@ class User
 
     public function assembleDisplayName()
     {
-        $display_name = GenderEnum::from($this->gender)->text();
-
-        if ($this->name_prefix) {
-            $display_name .= ' ' . $this->name_prefix;
-        }
+        $gender_text = $this->getGenderText();
+        $display_name = $gender_text . $this->name_prefix ?: '';
 
         return sprintf('%s %s %s', $display_name, $this->first_name, $this->last_name);
     }
@@ -58,6 +58,11 @@ class User
     public function getGender(): int
     {
         return $this->gender;
+    }
+
+    public function getGenderText(): string
+    {
+        return GenderEnum::from($this->gender)->text();
     }
 
     public function setGender(int $gender): void

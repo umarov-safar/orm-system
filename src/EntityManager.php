@@ -33,6 +33,7 @@ class EntityManager
         if (!isset($this->userRepository)) {
             $this->userRepository = new UserRepository($this);
         }
+
         return $this->userRepository;
     }
 }

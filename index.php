@@ -5,10 +5,10 @@ use Orm\Entity\Entities\User;
 
 include_once __DIR__ . '/vendor/autoload.php';
 
-//fake from db
-$users = include_once './src/Data/users.php';
+$db = new \PDO('mysql:host=db;dbname=orm', 'root', 'secret');
+$user_data = $db->query(sprintf('SELECT * FROM %s WHERE id = 1', User::TABLE))->fetch(PDO::FETCH_ASSOC);
 
 $user = new User();
 $user_mapper = new \Orm\Entity\Mappers\UserMapper();
-$user_mapper->populate($users[0], $user);
-echo $user->assembleDisplayName();
+$user_mapper->populate($user_data, $user);
+
