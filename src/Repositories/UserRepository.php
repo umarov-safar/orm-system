@@ -26,6 +26,10 @@ class UserRepository
             ->query(sprintf('SELECT * FROM %s WHERE id = %s', User::TABLE, $id))
             ->fetch();
 
-        return $this->userMapper->populate($user_data, new User());
+        if ($user_data) {
+            return $this->userMapper->populate($user_data, new User());
+        }
+
+        return null;
     }
 }

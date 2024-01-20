@@ -14,15 +14,11 @@ class User
     private string $first_name;
     private string $last_name;
     private int $gender;
-    private string $name_prefix;
 
 
-    public function assembleDisplayName()
+    public function getFullNameWithGender()
     {
-        $gender_text = $this->getGenderText();
-        $display_name = $gender_text . $this->name_prefix ?: '';
-
-        return sprintf('%s %s %s', $display_name, $this->first_name, $this->last_name);
+        return sprintf('%s %s %s', $this->getGenderText(), $this->first_name, $this->last_name);
     }
 
     public function getId(): int
@@ -69,17 +65,5 @@ class User
     {
         $this->gender = $gender;
     }
-
-    public function getNamePrefix(): string
-    {
-        return $this->name_prefix;
-    }
-
-    public function setNamePrefix(string $name_prefix): void
-    {
-        $this->name_prefix = $name_prefix;
-    }
-
-
 
 }

@@ -14,7 +14,6 @@ class UserMapper implements Mapperable
         'first_name' => 'first_name',
         'last_name' => 'last_name',
         'gender' => 'gender',
-        'name_prefix' => 'name_prefix'
     ];
 
     public function extract(User $user): array

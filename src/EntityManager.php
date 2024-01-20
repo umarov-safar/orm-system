@@ -2,38 +2,68 @@
 
 namespace Orm\Entity;
 
+use Exception;
+use Orm\Entity\Entities\User;
+use Orm\Entity\Mappers\UserMapper;
 use Orm\Entity\Repositories\UserRepository;
+use PDO;
 
-class EntityManager
+final class EntityManager
 {
-    private string $host;
-    private string $db;
-    private string $user;
-    private string $pwd;
-    private \PDO $connection;
-    private UserRepository $userRepository;
+    private static ?EntityManager $instance = null;
 
-    public function __construct(string $host, string $db, string $user, string $pwd)
+    private UserRepository $user_repository;
+
+    private PDO $connection;
+
+    private function __construct()
     {
-        $this->host = $host;
-        $this->user = $user;
-        $this->pwd = $pwd;
-
-        $dns = 'mysql:host=' . $this->host . ';dbname=' . $db;
-        $this->connection = new \PDO($dns, $user, $pwd, [\PDO::FETCH_ASSOC]);
+        $dsn = sprintf("mysql:host=%s;dbname=%s", config('database.host'), config('database.database'));
+        $this->connection = new PDO($dsn, config('database.user'), config('database.password'));
     }
 
-    public function query(string $stmt)
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    private function __clone()
+    {
+
+    }
+
+    public function __wakeup()
+    {
+        throw new Exception("Cannot unserialize singleton");
+    }
+
+
+    public function query(string $stmt): false|\PDOStatement
     {
         return $this->connection->query($stmt);
     }
 
-    public function getUserRepository()
+    public function getUserRepository(): UserRepository
     {
-        if (!isset($this->userRepository)) {
-            $this->userRepository = new UserRepository($this);
+        if (!isset($this->user_repository)) {
+            $this->user_repository = new UserRepository($this);
         }
 
-        return $this->userRepository;
+        return $this->user_repository;
+    }
+
+    public function saveUser(User $user)
+    {
+        $user_mapper = new UserMapper();
+        $data = $user_mapper->extract($user);
+
+        $columns_string = implode(', ', array_keys($data));
+        $values_string = implode(', ', array_map(fn ($value) => $this->connection->quote($value), $data));
+
+        return $this->query(sprintf('INSERT INTO %s (%s) VALUES(%s)', User::TABLE, $columns_string, $values_string));
     }
 }
