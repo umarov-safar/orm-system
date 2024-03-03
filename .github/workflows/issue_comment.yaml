@@ -8,13 +8,13 @@ jobs:
   comment-with-action:
     runs-on: ubuntu-latest
     steps:
-      - name: Print event
-        run: echo '${{ toJson(github.event) }}' | jq
-#      - name: Create comment
-#        uses: peter-evans/create-or-update-comment@v1
-#        with:
-#          issue: ${{ github.event.issue.number }}
-#          body: |
-#            This is comment from action
-#            - I love you all
-#            - In the **parenthesis**
+#      - name: Print event
+#        run: echo '${{ toJson(github.event) }}' | jq
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            This is comment from action
+            - I love you all
+            - In the **parenthesis**
