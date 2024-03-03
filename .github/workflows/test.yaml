@@ -23,3 +23,6 @@ jobs:
       - name: Test end
         run: echo "Goodbye test"
         shell: bash
+      - name: Another test
+        run: cat ./index.php
+        shell: bash
