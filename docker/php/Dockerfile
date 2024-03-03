@@ -7,10 +7,13 @@ RUN apt-get update \
     && docker-php-ext-enable pdo_mysql  \
     && apt-get install zip unzip
 
+RUN pecl install xdebug-3.0.1 \
+    && docker-php-ext-enable xdebug
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Copy your application files
-COPY . .
+COPY ../.. .
 
 # Expose ports for PHP-FPM and Nginx
 EXPOSE 9000

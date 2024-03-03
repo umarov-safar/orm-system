@@ -5,13 +5,14 @@ services:
     container_name: php
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/php/Dockerfile
     volumes:
       - ./:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - backend
     ports:
-      - 8000:9000
+      - "8000:9000"
   db:
     image: mysql
     container_name: mysql

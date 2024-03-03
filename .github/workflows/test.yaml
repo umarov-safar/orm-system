@@ -1,0 +1,25 @@
+name: "Test workflow"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  test_first:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions@checkout@v2
+      - name: Test workflow first
+        run: cat ./index.php
+        shell: bash
+  test_end:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test end
+        run: echo "Goodbye test"
+        shell: bash

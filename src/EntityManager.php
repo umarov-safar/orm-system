@@ -61,6 +61,8 @@ final class EntityManager
         $user_mapper = new UserMapper();
         $data = $user_mapper->extract($user);
 
+        $user_id = call_user_func([$user, $user_mapper]);
+
         $columns_string = implode(', ', array_keys($data));
         $values_string = implode(', ', array_map(fn ($value) => $this->connection->quote($value), $data));
 
