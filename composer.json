@@ -1,5 +1,5 @@
 {
-    "name": "laravel-openapi/rest-generator",
+    "name": "orm-entity/mapper",
     "description": "PHP entity without any orm",
     "type": "project",
     "license": "MIT",
